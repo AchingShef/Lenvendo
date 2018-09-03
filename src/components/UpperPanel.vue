@@ -30,6 +30,7 @@ export default {
         padding: 10px 15px;
         box-sizing: border-box;
         text-align: right;
+        margin-bottom: 5px;
 
         .btn {
             color: #333333;
