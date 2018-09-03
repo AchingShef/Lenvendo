@@ -4,6 +4,7 @@
         <template v-for="item in textBlocks">
             <text-block
                 :prop-guid="item.guid"
+                prop-name="simple"
                 v-if="item.isSimple"
                 v-bind:key="item.guid"
                 v-on:destroy-text-block="onDestoyTextBlock"
@@ -12,6 +13,7 @@
             <complex-text-block
                 :prop-guid="item.guid"
                 :prop-color="item.color"
+                prop-name="complex"
                 v-else
                 v-bind:key="item.guid"
                 v-on:destroy-text-block="onDestoyTextBlock"
@@ -19,13 +21,16 @@
                 v-on:change-color="onChangeColor"
             />
         </template>
+        <div class="wrapper"></div>
+        <lower-panel />
     </div>
 </template>
 
 <script>
     import UpperPanel from "./UpperPanel";
-    import TextBlock from "./TextBlock";
-    import ComplexTextBlock from "./ComplexTextBlock";
+    import LowerPanel from "./LowerPanel";
+    import TextBlock from "./TextBlock/";
+    import ComplexTextBlock from "./ComplexTextBlock/";
 
     export default {
         data() {
@@ -82,7 +87,8 @@
         components: {
             "upper-panel": UpperPanel,
             "text-block": TextBlock,
-            "complex-text-block": ComplexTextBlock
+            "complex-text-block": ComplexTextBlock,
+            "lower-panel": LowerPanel
         }
     };
 </script>
@@ -91,5 +97,10 @@
 <style lang="less" scoped>
     .main {
         height: 100%;
+    }
+
+    .wrapper {
+        height: 50px;
+        clear: both;
     }
 </style>
