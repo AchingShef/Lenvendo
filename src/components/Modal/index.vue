@@ -3,17 +3,16 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-                    <div class="modal-header">
-                        <slot name="header">default header</slot>
-                    </div>
                     <div class="modal-body">
-                        <slot name="body">default body</slot>
+                        Do you really want to delete the text block?
                     </div>
                     <div class="modal-footer">
-                        <slot name="footer">default footer<button class="modal-default-button" @click="$emit('close')">
-                            OK
-                            </button>
-                        </slot>
+                        <button class="modal-default-button" @click="$emit('ok')" style="float: left;">
+                            Ok
+                        </button>
+                        <button class="modal-default-button" @click="$emit('cancel')">
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>
@@ -57,7 +56,6 @@ export default {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -71,6 +69,10 @@ export default {
 
 .modal-default-button {
   float: right;
+}
+
+.modal-footer {
+    padding-bottom: 5px;
 }
 
 /*

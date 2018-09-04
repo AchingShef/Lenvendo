@@ -1,11 +1,9 @@
 <template>
-    <div class="text-block" v-on:click="select" ref="container">
-        <span class="close" v-on:click.stop="destroy">x</span>
+    <div class="text-block" @click="select" ref="container">
+        <span class="close" @click.stop="$emit('destroy-text-block', guid)">x</span>
         <span class="name" v-once>{{ name }}</span>
         <p class="text" v-once>{{ text }}</p>
-        <span class="selected" v-on:click="markerClick" v-if="selected">&#10004;</span>
-        <slot>
-        </slot>
+        <span class="selected" @click="markerClick" v-if="selected">&#10004;</span>
     </div>
 </template>
 
@@ -23,9 +21,6 @@ export default {
     methods: {
         genText() {
             return Math.random().toString(36);
-        },
-        destroy(e) {
-            this.$emit("destroy-text-block", this.guid);
         },
         select() {
             this.selected = !this.selected;

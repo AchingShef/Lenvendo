@@ -16,13 +16,14 @@
                 prop-name="complex"
                 v-else
                 v-bind:key="item.guid"
-                v-on:destroy-text-block="onDestoyTextBlock"
+                v-on:destroy-text-block="prepareToDestroy"
                 v-on:select-text-block="onSelecteTextBox"
                 v-on:change-color="onChangeColor"
             />
         </template>
         <div class="wrapper"></div>
         <lower-panel />
+        <modal v-if="showModal" @cancel="showModal = false" @ok="destroyComplexTextBlock"/>
     </div>
 </template>
 
@@ -31,16 +32,30 @@
     import LowerPanel from "./LowerPanel";
     import TextBlock from "./TextBlock/";
     import ComplexTextBlock from "./ComplexTextBlock/";
+    import Modal from "./Modal/";
 
     export default {
         data() {
             return {
                 textBlocks: [
 
-                ]
+                ],
+                showModal: false,
+                destroyGuid: null
             };
         },
         methods: {
+            destroyComplexTextBlock() {
+                this.showModal = false;
+
+                this.onDestoyTextBlock(this.destroyGuid);
+
+                this.destroyGuid = null;
+            },
+            prepareToDestroy(guid) {
+                this.destroyGuid = guid;
+                this.showModal = true;
+            },
             onAddTextBlock(isSimple) {
                 let textBlock = {
                     isSimple: isSimple,
@@ -88,7 +103,8 @@
             "upper-panel": UpperPanel,
             "text-block": TextBlock,
             "complex-text-block": ComplexTextBlock,
-            "lower-panel": LowerPanel
+            "lower-panel": LowerPanel,
+            "modal": Modal
         }
     };
 </script>
