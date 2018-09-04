@@ -8,7 +8,7 @@
                 v-if="item.isSimple"
                 v-bind:key="item.guid"
                 v-on:destroy-text-block="onDestoyTextBlock"
-                v-on:select-text-block="onSelecteTextBox"
+                v-on:select-text-block="onSelectTextBox"
             />
             <complex-text-block
                 :prop-guid="item.guid"
@@ -17,12 +17,17 @@
                 v-else
                 v-bind:key="item.guid"
                 v-on:destroy-text-block="prepareToDestroy"
-                v-on:select-text-block="onSelecteTextBox"
+                v-on:select-text-block="onSelectTextBox"
                 v-on:change-color="onChangeColor"
             />
         </template>
         <div class="wrapper"></div>
-        <lower-panel />
+        <lower-panel 
+            :prop-count="count.all"
+            :prop-selected="count.selected"
+            :prop-green="count.green"
+            :prop-red="count.red"
+        />
         <modal v-if="showModal" @cancel="showModal = false" @ok="destroyComplexTextBlock"/>
     </div>
 </template>
@@ -41,7 +46,13 @@
 
                 ],
                 showModal: false,
-                destroyGuid: null
+                destroyGuid: null,
+                count: {
+                    all: 0,
+                    selected: 0,
+                    green: 0,
+                    red: 0
+                }
             };
         },
         methods: {
@@ -85,7 +96,7 @@
                     }
                 }
             },
-            onSelecteTextBox(selected, guid) {
+            onSelectTextBox(selected, guid) {
                 this.getElementByGuid(guid).selected = selected;
             },
             onChangeColor(guid, color) {
@@ -105,6 +116,31 @@
             "complex-text-block": ComplexTextBlock,
             "lower-panel": LowerPanel,
             "modal": Modal
+        },
+        watch: {
+            textBlocks: {
+                handler() {
+                    let selected = 0,
+                        green = 0,
+                        red = 0;
+
+                    this.textBlocks.forEach(item => {
+                        if (item.selected) {
+                            selected += 1;
+
+                            if (item.color) {
+                                item.color === "green" ? green += 1 : red += 1;
+                            }
+                        }
+                    });
+
+                    this.count.all = this.textBlocks.length;
+                    this.count.selected = selected;
+                    this.count.green = green;
+                    this.count.red = red;
+                },
+                deep: true
+            }
         }
     };
 </script>

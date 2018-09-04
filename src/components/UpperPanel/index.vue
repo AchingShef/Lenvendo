@@ -1,8 +1,8 @@
 <template>
     <div class="upper-panel">
         <div class="panel-container">
-            <button class="btn" v-on:click="addTextBlock(true)">Add text block</button>
-            <button class="btn" v-on:click="addTextBlock(false)">Add complex text block</button>
+            <button class="btn" @click="addTextBlock(true)">Add text block</button>
+            <button class="btn" @click="addTextBlock(false)">Add complex text block</button>
         </div>
     </div>    
 </template>

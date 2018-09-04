@@ -1,21 +1,28 @@
 <template>
     <div class="lower-panel">
         <div class="panel-container">
-            
+            <div class="count">
+                Blocks count: {{propCount}}
+            </div>
+            <div class="selected">
+                Selected blocks: {{propSelected}}
+            </div>
+            <div class="selected">
+                Selected green: {{propGreen}}
+            </div>
+            <div class="selected">
+                Selected red: {{propRed}}
+            </div>
         </div>
     </div>    
 </template>
 
 <script>
 export default {
+    props: ["prop-count", "prop-selected", "prop-green", "prop-red"],
     data() {
         return {
 
-        }
-    },
-    methods: {
-        addTextBlock(isSimple) {
-            this.$emit("add-text-block", isSimple);
         }
     }
 };
@@ -32,6 +39,16 @@ export default {
         box-sizing: border-box;
         border-radius: 16px;
         z-index: 10000;
-        width: 100%;
+        padding: 15px 15px;
+        display: table;
+
+        .panel-container {
+            display: table-row;
+
+            div {
+                color: #ffffff;
+                display: table-cell;
+            }
+        }
     }
 </style>
